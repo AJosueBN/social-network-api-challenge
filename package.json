@@ -1,0 +1,29 @@
+{
+  "name": "social-network-api",
+  "version": "1.0.1",
+  "description": "Building api for a social network web application.",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed",
+    "heroku-postbuild": "node utils/seed.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^7.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJosueBN/week-18-social-network-api-challenge.git"
+  },
+  "author": "AJosueBN",
+  "bugs": {
+    "url": "https://github.com/AJosueBN/week-18-social-network-api-challenge/issues"
+  },
+  "homepage": "https://github.com/AJosueBN/week-18-social-network-api-challenge#readme"
+}
