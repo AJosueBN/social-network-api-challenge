@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-// Schema to create a course model
+// Schema to create a Thought model schema
 const thoughtSchema = new Schema(
   {
     thoughtText: {
