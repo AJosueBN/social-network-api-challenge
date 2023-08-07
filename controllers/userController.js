@@ -11,7 +11,7 @@ const userCount = async () => {
 // Aggregate function for getting the overall reactions using $avg
 const reactions = async (userId) =>
   User.aggregate([
-    // only include the given student by using $match
+    // only include the given user by using $match
     { $match: { _id: new ObjectId(userId) } },
     {
       $unwind: '$reactions',
@@ -42,7 +42,7 @@ module.exports = {
       return res.status(500).json(err);
     }
   },
-  // Get a single student
+  // Get a single user
   async getSingleUser(req, res) {
     try {
       const dbUserData = await User.findOne({ _id: req.params.userId })
@@ -72,7 +72,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Delete a user and remove them from the social network
+  // Delete a user and remove them from the social network api
   async deleteUser(req, res) {
     try {
       const dbUserData = await User.findOneAndRemove({ _id: req.params.userId });
