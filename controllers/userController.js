@@ -69,13 +69,15 @@ module.exports = {
       const dbUserData = await User.create(req.body);
       res.json(dbUserData);
     } catch (err) {
+      console.log(err)
       res.status(500).json(err);
     }
   },
   // Delete a user and remove them from the social network
   async deleteUser(req, res) {
     try {
-      const dbUserData = await User.findOneAndRemove({ _id: req.params.userId });
+      console.log("_id", req.params.userId)
+      const dbUserData = await User.findOneAndDelete({ _id: req.params.userId });
 
       if (!dbUserData) {
         return res.status(404).json({ message: 'No such user exists!' });
@@ -88,12 +90,29 @@ module.exports = {
       );
 
       if (!dbThoughtData) {
-        return res.status(404).json({
-          message: 'Thought deleted, but no users found',
+        return res.status(200).json({
+          message: 'User deleted, but no thoughts found',
         });
       }
 
       res.json({ message: 'User successfully deleted' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
+
+  async updateUser(req, res) {
+    try {
+      console.log("_id", req.params.userId)
+      const dbUserData = await User.findOneAndUpdate({ _id: req.params.userId },{$set: req.body}, {new: true})
+
+      if (!dbUserData) {
+        return res.status(404).json({ message: 'No such user exists!' });
+      }
+
+
+      res.json(dbUserData);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
