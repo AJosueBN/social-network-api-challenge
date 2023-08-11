@@ -101,7 +101,8 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-
+    
+  // Updating a username and it changes in the social network api
   async updateUser(req, res) {
     try {
       console.log("_id", req.params.userId)
