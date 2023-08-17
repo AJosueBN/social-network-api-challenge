@@ -80,18 +80,18 @@ module.exports = {
       const dbUserData = await User.findOneAndDelete({ _id: req.params.userId });
 
       if (!dbUserData) {
-        return res.status(404).json({ message: 'No such user exists!' });
+        return res.status(404).json({ message: 'No such user exists or user not found with that ID!' });
       }
 
       const dbThoughtData = await Thought.findOneAndUpdate(
-        { students: req.params.studentId },
+        { dbUserData: req.params.userId },
         { $pull: { dbUserData: req.params.userId } },
         { new: true }
       );
 
       if (!dbThoughtData) {
         return res.status(200).json({
-          message: 'User deleted, but no thoughts found',
+          message: 'User deleted, with no thoughts found on their profile',
         });
       }
 
@@ -109,7 +109,7 @@ module.exports = {
       const dbUserData = await User.findOneAndUpdate({ _id: req.params.userId },{$set: req.body}, {new: true})
 
       if (!dbUserData) {
-        return res.status(404).json({ message: 'No such user exists!' });
+        return res.status(404).json({ message: 'No such user exists or user not found with that ID!' });
       }
 
 
@@ -120,46 +120,42 @@ module.exports = {
     }
   },
 
-  // Add a reaction for a user
-  async addReaction(req, res) {
-    console.log('You are adding a reaction');
-    console.log(req.body);
-
+  async addFriend(req, res) {
     try {
+      console.log("_id", req.params.userId)
       const dbUserData = await User.findOneAndUpdate(
-        { _id: req.params.usertId },
-        { $addToSet: { assignments: req.body } },
+        { _id: req.params.userId },
+        { $addToSet: { friends: req.body.friendId} }, 
         { runValidators: true, new: true }
-      );
+        );
 
       if (!dbUserData) {
-        return res
-          .status(404)
-          .json({ message: 'No student found with that ID :(' });
+        return res.status(404).json({ message: 'No such user exists OR user not found with that ID!' });
       }
 
       res.json(dbUserData);
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
-  // Remove a reaction from a user
-  async removeReaction(req, res) {
+
+  async removeFriend(req, res) {
     try {
+      console.log("_id", req.params.userId)
       const dbUserData = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { assignment: { reactionId: req.params.reactionId } } },
+        { $pull: { friends: req.params.friendId} }, 
         { runValidators: true, new: true }
-      );
+        );
 
       if (!dbUserData) {
-        return res
-          .status(404)
-          .json({ message: 'No user found with that ID :(' });
+        return res.status(404).json({ message: 'No such user exists or user not found with that ID!' });
       }
 
-      res.json(dbUserData);
+      res.json({ message: 'Friend has now been removed!' });
     } catch (err) {
+      console.log(err);
       res.status(500).json(err);
     }
   },
