@@ -119,6 +119,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
 // Helps add a friend with an associated user within the network DB using their id 
   async addFriend(req, res) {
     try {
@@ -139,7 +140,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-// // Helps remove a friend with an associated user within the network DB.
+  // Helps remove a friend with an associated user within the network DB.
   async removeFriend(req, res) {
     try {
       console.log("_id", req.params.userId)
