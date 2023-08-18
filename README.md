@@ -19,3 +19,7 @@ THEN the database can successfully create, update, and delete users and thoughts
 - WHEN the user tests API POST and DELETE routes on an API platform
 THEN the user is able to successfully create and delete reactions to thoughts and add and remove friends to a user’s friend list on an API platform
 
+# Video functionality of API data requests for startup social network:
+
+https://github.com/AJosueBN/social-network-api-challenge/assets/129113539/42f679d0-0634-40e1-b338-bbb056b2ee4e
+
